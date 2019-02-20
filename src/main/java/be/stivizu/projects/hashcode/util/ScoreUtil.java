@@ -2,6 +2,7 @@ package be.stivizu.projects.hashcode.util;
 
 import be.stivizu.projects.hashcode.model.InputData;
 import be.stivizu.projects.hashcode.model.OutputData;
+import be.stivizu.projects.hashcode.model.Slice;
 
 public class ScoreUtil {
 
@@ -11,7 +12,13 @@ public class ScoreUtil {
             If multiple algorithms are provided, this becomes required.
      */
     public static long calculateScore(final InputData inputData, final OutputData outputData) {
-        return -1;
+        return outputData.getSlices().stream()
+                .mapToLong(ScoreUtil::calculateScore)
+                .sum();
+    }
+
+    private static long calculateScore(final Slice slice) {
+        return (slice.getEndRow() - slice.getStartRow() + 1) * (slice.getEndCol() - slice.getStartCol() + 1);
     }
 
 }

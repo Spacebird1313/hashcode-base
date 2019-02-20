@@ -26,6 +26,7 @@ public abstract class Algorithm {
         TODO[REQUIRED]: Abstract algorithm that needs to be overriden to implement an algorithm. Insert output data
             in the outputData object.
      */
+
     protected abstract void doAlgorithm();
 
     private void logScore() {

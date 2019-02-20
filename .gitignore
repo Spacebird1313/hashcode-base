@@ -4,3 +4,6 @@
 
 # Maven project files and folders
 target/
+
+# Output folder
+src/main/resources/output/
