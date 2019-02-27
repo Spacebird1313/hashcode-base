@@ -11,6 +11,7 @@ public class ScoreUtil {
             can automatically choose the optimal algorithm for each data set.
             If multiple algorithms are provided, this becomes required.
      */
+
     public static long calculateScore(final InputData inputData, final OutputData outputData) {
         return outputData.getSlices().stream()
                 .mapToLong(ScoreUtil::calculateScore)
