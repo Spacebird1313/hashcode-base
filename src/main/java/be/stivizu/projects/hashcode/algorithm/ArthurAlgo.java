@@ -14,7 +14,7 @@ import static be.stivizu.projects.hashcode.util.ArthurUtil.*;
 public class ArthurAlgo extends Algorithm {
 
     @Override protected void doAlgorithm() {
-
+/*
         List<Photo> photos = new ArrayList<>(inputData.photos);
 
         List<Photo> horizontal = getWithOrientation(photos, Orientation.HORIZONTAL);
@@ -64,6 +64,6 @@ public class ArthurAlgo extends Algorithm {
 
         outputData.setNumberOfSlides(numSlides);
         outputData.setSlides(allSlides);
-
+*/
     }
 }

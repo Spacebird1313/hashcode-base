@@ -10,7 +10,7 @@ public class TestAlgorithm extends Algorithm {
 
     @Override
     protected void doAlgorithm() {
-        List<Slide> slides = new ArrayList<>();
+        /*List<Slide> slides = new ArrayList<>();
 
         for (Photo photo : inputData.horPhotos) {
             slides.add(new Slide(photo.getId()));
@@ -23,7 +23,6 @@ public class TestAlgorithm extends Algorithm {
         }
 
         outputData.setNumberOfSlides(slides.size());
-        outputData.setSlides(slides);
+        outputData.setSlides(slides);*/
     }
-
 }

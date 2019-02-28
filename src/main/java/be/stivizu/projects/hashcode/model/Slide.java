@@ -11,7 +11,6 @@ public class Slide {
 
     public Set<String> allTags;
 
-
     public Slide(List<Photo> photos, int... ids) {
         this.photos = photos;
         this.photoIds = new ArrayList<>();
