@@ -5,10 +5,7 @@ import be.stivizu.projects.hashcode.model.Photo;
 import be.stivizu.projects.hashcode.model.Slide;
 import be.stivizu.projects.hashcode.util.ArthurUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
+import java.util.*;
 
 import static be.stivizu.projects.hashcode.util.ArthurUtil.*;
 
@@ -30,13 +27,14 @@ public class ArthurAlgo extends Algorithm {
         ListIterator<Photo> verticalIter = vertical.listIterator();
         while (horizontalIter.hasNext()){
             Photo next = horizontalIter.next();
-            slides.add(new Slide(next.getId()));
+            slides.add(new Slide(Collections.singletonList(next), next.getId()));
             numSlides++;
         }
 
         while (verticalIter.hasNext()){
             Photo next = verticalIter.next();
-            slides.add(new Slide(next.getId(), verticalIter.next().getId()));
+            Photo next2 = verticalIter.next();
+            slides.add(new Slide(Arrays.asList(next, next2), next.getId(), next2.getId()));
             numSlides++;
         }
 

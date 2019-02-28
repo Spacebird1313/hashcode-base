@@ -1,9 +1,8 @@
 package be.stivizu.projects.hashcode.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import be.stivizu.projects.hashcode.util.ArthurUtil;
+
+import java.util.*;
 
 public class Slide {
 
@@ -50,6 +49,13 @@ public class Slide {
         }
 
         return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
+    }
+
+    public int getInterestFactorStreams(Slide other){
+        long numCommonTags = ArthurUtil.getNumCommonTags(this, other);
+        long notInB = ArthurUtil.getNumNotInOther(this, other);
+        long notInA = ArthurUtil.getNumNotInOther(other, this);
+        return Math.toIntExact(Arrays.asList(numCommonTags, notInA, notInB).stream().min(Long::compareTo).get());
     }
 
     public Set<String> getAllTags(Slide slide){
