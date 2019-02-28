@@ -15,7 +15,7 @@ public class InputData {
      */
 
     public Set<Photo> photos;
-    public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
+    //public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
 
     public InputData(final List<String> fileData) {
         photos = new HashSet<>();
@@ -29,10 +29,10 @@ public class InputData {
             }
             photos.add(photo);
         }
-        sortPhotosUtil.sortPhotos(photos);
+        //sortPhotosUtil.sortPhotos(photos);
     }
 
-    public SortPhotosUtil getSortPhotosUtil() {
-        return sortPhotosUtil;
-    }
+//    public SortPhotosUtil getSortPhotosUtil() {
+//        return sortPhotosUtil;
+//    }
 }

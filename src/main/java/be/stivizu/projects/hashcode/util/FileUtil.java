@@ -43,6 +43,30 @@ public class FileUtil {
         }
     }
 
+    public static void clearResourceFolderOrCreateIt(final String pathFromResources) {
+        Path folder = null;
+        try {
+            folder = loadResource(pathFromResources);
+        } catch (Exception e) {
+            //Skip exception - create folder
+        } finally {
+            if (folder != null) {
+                clearFolderContents(folder);
+            } else {
+                final Path newPath = Paths.get(RESOURCES_DIR + pathFromResources);
+                createFolder(newPath);
+            }
+        }
+    }
+
+    public static void createFolder(final Path directory) {
+        try {
+            Files.createDirectories(directory);
+        } catch (Exception e) {
+            throw new RuntimeException("Supplied path <" + directory + "> could not be created");
+        }
+    }
+
     public static void clearFolderContents(final Path folderPath) {
         try {
             if (!Files.isDirectory(folderPath)) {
@@ -67,6 +91,13 @@ public class FileUtil {
         }
     }
 
+    public static Path changeFileExtension(final Path file, final String newExtension) {
+        final String fileName = file.getFileName().toString();
+        final String newFileName = fileName.substring(0, fileName.lastIndexOf(".") + 1).concat(newExtension);
+
+        return Paths.get(newFileName);
+    }
+
     private static void createSourcesZip(final Path outputFolder) {
         try {
             deleteFileIfExists(Paths.get(SOURCES_ZIP_FILENAME));
@@ -86,5 +117,4 @@ public class FileUtil {
             throw new RuntimeException("Was unable to delete file <" + file + ">");
         }
     }
-
 }
