@@ -10,7 +10,7 @@ public class InputData {
             available in the algorithm(s).
      */
 
-    private List<Photo> photos;
+    protected List<Photo> photos;
 
     public InputData(final List<String> fileData) {
         photos = new ArrayList<>();
@@ -24,10 +24,6 @@ public class InputData {
             }
             photos.add(photo);
         }
-    }
-
-    public List<Photo> getPhotos() {
-        return photos;
     }
 
 }
