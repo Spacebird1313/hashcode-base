@@ -39,7 +39,7 @@ public class ScoreUtil {
 
     private static List<String> getTagsForSlide(InputData inputData, Slide slide) {
         List<String> tags = new ArrayList<>();
-        for (Integer photoId : slide.getPhotoIds()) {
+        for (Integer photoId : slide.photoIds) {
             tags.addAll(inputData.photosList.get(photoId).getTags());
         }
         return tags;
