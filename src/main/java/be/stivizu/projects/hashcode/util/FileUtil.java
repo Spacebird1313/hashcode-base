@@ -12,7 +12,7 @@ public class FileUtil {
 
     private static final String RESOURCES_DIR = "src/main/resources/";
 
-    private static final String SOURCES_DIR = "src";
+    private static final String SOURCES_DIR = "src/main/java";
 
     private static final String SOURCES_ZIP_FILENAME = "src.zip";
 
