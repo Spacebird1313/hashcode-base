@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Slide {
 
-    List<Integer> photoIds;
+    public List<Integer> photoIds;
 
     public Slide(int... ids) {
         this.photoIds = new ArrayList<>();

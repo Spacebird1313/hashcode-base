@@ -22,6 +22,10 @@ public class OutputData {
         this.numberOfSlides = numberOfSlides;
     }
 
+    public List<Slide> getSlides() {
+        return slides;
+    }
+
     public void setSlides(List<Slide> slides) {
         this.slides = slides;
     }
