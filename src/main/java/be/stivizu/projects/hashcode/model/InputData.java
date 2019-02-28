@@ -1,9 +1,9 @@
 package be.stivizu.projects.hashcode.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class InputData {
 
@@ -12,15 +12,15 @@ public class InputData {
             available in the algorithm(s).
      */
 
-    public Set<Photo> photos;
+    public List<Photo> photosList = new ArrayList<>();
 
-    public List<Photo> photosList;
+    public List<Photo> photosSortNoTags = new ArrayList<>();
 
-    //public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
+    public List<Photo> photosHorSortNoTags = new ArrayList<>();
+
+    public List<Photo> photosVerSortNoTags = new ArrayList<>();
 
     public InputData(final List<String> fileData) {
-        photos = new HashSet<>();
-        photosList = new ArrayList<>();
         int numberOfPhotos = Integer.parseInt(fileData.get(0));
         for (int i = 1; i <= numberOfPhotos; i++) {
             String[] dataLine = fileData.get(i).split(" ");
@@ -29,13 +29,18 @@ public class InputData {
             for (int tagIndex = 2; tagIndex < dataLine.length; tagIndex++) {
                 photo.addTag(dataLine[tagIndex]);
             }
-            photos.add(photo);
             photosList.add(photo);
         }
-        //sortPhotosUtil.sortPhotos(photos);
+        photosSortNoTags = photosList.stream()
+                .sorted(Comparator.comparing(photo -> photo.getTags().size()))
+                .collect(Collectors.toList());
+        for (Photo photo : photosSortNoTags) {
+            if (photo.getOrientation() == Orientation.HORIZONTAL) {
+                photosHorSortNoTags.add(photo);
+            } else {
+                photosVerSortNoTags.add(photo);
+            }
+        }
     }
 
-//    public SortPhotosUtil getSortPhotosUtil() {
-//        return sortPhotosUtil;
-//    }
 }
