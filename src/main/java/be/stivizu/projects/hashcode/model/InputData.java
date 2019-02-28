@@ -20,6 +20,10 @@ public class InputData {
 
     public List<Photo> photosSortNoTags = new ArrayList<>();
 
+    public List<Photo> photosSortHorizontalNoTags = new ArrayList<>();
+
+    public List<Photo> photosSortHVerticalNoTags = new ArrayList<>();
+
     //public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
 
     public InputData(final List<String> fileData) {
@@ -44,6 +48,13 @@ public class InputData {
         photosSortNoTags = photosList.stream()
                 .sorted(Comparator.comparing(photo -> photo.getTags().size()))
                 .collect(Collectors.toList());
+        for (Photo photo : photosSortNoTags) {
+            if (photo.getOrientation() == Orientation.HORIZONTAL) {
+                photosSortHorizontalNoTags.add(photo);
+            } else {
+                photosSortHVerticalNoTags.add(photo);
+            }
+        }
         //sortPhotosUtil.sortPhotos(photos);
     }
 

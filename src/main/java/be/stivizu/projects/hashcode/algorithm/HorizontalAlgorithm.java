@@ -16,46 +16,58 @@ public class HorizontalAlgorithm extends Algorithm
 
         System.out.println(">>>>> Iterations");
 
-        int noOfIterations = 100;
-        for (int iterationCount = 0; iterationCount < noOfIterations; iterationCount++) {
+        if (inputData.photosSortHorizontalNoTags.size() >= 3) {
 
-            System.out.println(">>>>> Iteration " + iterationCount);
+            int noOfIterations = 100;
+            for (int iterationCount = 0; iterationCount < noOfIterations; iterationCount++) {
 
-            Photo photoToAnalyze = inputData.photosSortNoTags.get(inputData.photosSortNoTags.size() - 2);
+                System.out.println(">>>>> Iteration " + iterationCount);
 
-            Photo photoAfter = inputData.photosSortNoTags.get(inputData.photosSortNoTags.size() - 1);
-            Photo photoBefore = inputData.photosSortNoTags.get(inputData.photosSortNoTags.size() - 3);
+                Photo photoToAnalyze = inputData.photosSortHorizontalNoTags.get(inputData.photosSortHorizontalNoTags.size() - 2);
 
-            int bestMinScore = getInterestFactor(photoAfter, photoToAnalyze)
-                    + getInterestFactor(photoBefore, photoToAnalyze);
-            int indexToPlace = -1;
+                Photo photoAfter = inputData.photosSortHorizontalNoTags.get(inputData.photosSortHorizontalNoTags.size() - 1);
+                Photo photoBefore = inputData.photosSortHorizontalNoTags.get(inputData.photosSortHorizontalNoTags.size() - 3);
 
-            for (int photoIndex = 0; photoIndex < inputData.photosSortNoTags.size() - 4; photoIndex++) {
+                int bestMinScore = getInterestFactor(photoAfter, photoToAnalyze)
+                        + getInterestFactor(photoBefore, photoToAnalyze);
+                int indexToPlace = -1;
 
-                Photo photoToCompare1 = inputData.photosSortNoTags.get(photoIndex);
-                Photo photoToCompare2 = inputData.photosSortNoTags.get(photoIndex + 1);
+                for (int photoIndex = 0; photoIndex < inputData.photosSortHorizontalNoTags.size() - 4; photoIndex++) {
 
-                int interestFactor = getInterestFactor(photoToCompare1, photoToAnalyze)
-                        + getInterestFactor(photoToCompare2, photoToAnalyze);
+                    Photo photoToCompare1 = inputData.photosSortHorizontalNoTags.get(photoIndex);
+                    Photo photoToCompare2 = inputData.photosSortHorizontalNoTags.get(photoIndex + 1);
 
-                if (interestFactor > bestMinScore) {
-                    bestMinScore = interestFactor;
-                    indexToPlace = photoIndex + 1;
+                    int interestFactor = getInterestFactor(photoToCompare1, photoToAnalyze)
+                            + getInterestFactor(photoToCompare2, photoToAnalyze);
+
+                    if (interestFactor > bestMinScore) {
+                        bestMinScore = interestFactor;
+                        indexToPlace = photoIndex + 1;
+                    }
+
+                }
+
+                if (indexToPlace != -1) {
+                    inputData.photosSortHorizontalNoTags.add(indexToPlace, photoToAnalyze);
+                    inputData.photosSortHorizontalNoTags.remove(inputData.photosSortHorizontalNoTags.size() - 2);
                 }
 
             }
 
-            if (indexToPlace != -1) {
-                inputData.photosSortNoTags.add(indexToPlace, photoToAnalyze);
-                inputData.photosSortNoTags.remove(inputData.photosSortNoTags.size() - 2);
-            }
-
         }
 
-        System.out.println(">>>>> Setting slices");
+        System.out.println(">>>>> Setting horizontal slices");
 
-        for (Photo photo : inputData.photosSortNoTags) {
+        for (Photo photo : inputData.photosSortHorizontalNoTags) {
             slides.add(new Slide(photo.getId()));
+        }
+
+        System.out.println(">>>>> Setting vertical slices");
+
+        for (int photoIndex = 0; photoIndex < inputData.photosSortHVerticalNoTags.size() - 2; photoIndex += 2) {
+            Photo photo1 = inputData.photosSortHVerticalNoTags.get(photoIndex);
+            Photo photo2 = inputData.photosSortHVerticalNoTags.get(photoIndex + 1);
+            slides.add(new Slide(photo1.getId(), photo2.getId()));
         }
 
         System.out.println(">>>>> Doing output");
