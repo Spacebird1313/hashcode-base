@@ -1,5 +1,6 @@
 package be.stivizu.projects.hashcode.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InputData {
@@ -9,6 +10,20 @@ public class InputData {
             available in the algorithm(s).
      */
 
-    public InputData(final List<String> fileData) {}
+    private List<Photo> photos;
+
+    public InputData(final List<String> fileData) {
+        photos = new ArrayList<>();
+        int numberOfPhotos = Integer.parseInt(fileData.get(0));
+        for (int i = 1; i <= numberOfPhotos; i++) {
+            String[] dataLine = fileData.get(i).split(" ");
+            String orientation = dataLine[0];
+            Photo photo = new Photo(i - 1, orientation);
+            for (int tagIndex = 2; tagIndex < dataLine.length; tagIndex++) {
+                photo.addTag(dataLine[tagIndex]);
+            }
+            photos.add(photo);
+        }
+    }
 
 }
