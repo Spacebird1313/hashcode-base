@@ -7,7 +7,7 @@ import java.util.*;
 
 public class VerticalPhotoCombinerUtil {
 
-    public Set<Slide> combineBig(Set<Photo> photos) {
+    public static Set<Slide> combineBig(Set<Photo> photos) {
         Set<Slide> slides = new HashSet<>();
         List<Photo> photos1 = new ArrayList<>(photos);
         ListIterator listIterator = photos1.listIterator();
