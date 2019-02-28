@@ -3,18 +3,17 @@ package be.stivizu.projects.hashcode.util;
 import be.stivizu.projects.hashcode.model.Orientation;
 import be.stivizu.projects.hashcode.model.Photo;
 
-import java.util.List;
 import java.util.Set;
 
 public class SortPhotosUtil {
-    protected List<Photo> photosV;
-    protected List<Photo> photosH;
+    protected Set<Photo> photosV;
+    protected Set<Photo> photosH;
 
-    public List<Photo> getPhotosV() {
+    public Set<Photo> getPhotosV() {
         return photosV;
     }
 
-    public List<Photo> getPhotosH() {
+    public Set<Photo> getPhotosH() {
         return photosH;
     }
 
