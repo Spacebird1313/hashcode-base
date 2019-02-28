@@ -1,7 +1,8 @@
 package be.stivizu.projects.hashcode.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class InputData {
 
@@ -10,10 +11,10 @@ public class InputData {
             available in the algorithm(s).
      */
 
-    protected List<Photo> photos;
+    public Set<Photo> photos;
 
     public InputData(final List<String> fileData) {
-        photos = new ArrayList<>();
+        photos = new HashSet<>();
         int numberOfPhotos = Integer.parseInt(fileData.get(0));
         for (int i = 1; i <= numberOfPhotos; i++) {
             String[] dataLine = fileData.get(i).split(" ");
