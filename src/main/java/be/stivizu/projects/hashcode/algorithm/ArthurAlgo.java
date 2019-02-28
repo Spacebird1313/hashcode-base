@@ -20,14 +20,14 @@ public class ArthurAlgo extends Algorithm {
 
         List<Slide> slides = new ArrayList<>();
 
-        getWithOrientation(photos, Orientation.HORIZONTAL);
-        getWithOrientation(photos, Orientation.VERTICAL);
+        List<Photo> horizontal = getWithOrientation(photos, Orientation.HORIZONTAL);
+        List<Photo> vertical = getWithOrientation(photos, Orientation.VERTICAL);
 
         int numSlides = 0;
 
         //Do algo
-        ListIterator<Photo> horizontalIter = photos.listIterator();
-        ListIterator<Photo> verticalIter = photos.listIterator();
+        ListIterator<Photo> horizontalIter = horizontal.listIterator();
+        ListIterator<Photo> verticalIter = vertical.listIterator();
         while (horizontalIter.hasNext()){
             Photo next = horizontalIter.next();
             slides.add(new Slide(next.getId()));
