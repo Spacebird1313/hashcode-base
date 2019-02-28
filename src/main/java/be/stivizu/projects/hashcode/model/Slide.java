@@ -58,7 +58,7 @@ public class Slide {
         return Math.toIntExact(Arrays.asList(numCommonTags, notInA, notInB).stream().min(Long::compareTo).get());
     }
 
-    public Set<String> getAllTags(Slide slide){
+    public static Set<String> getAllTags(Slide slide){
         Set<String> tags = new HashSet<>();
         for (Photo photo : slide.photos) {
             tags.addAll(photo.getTags());

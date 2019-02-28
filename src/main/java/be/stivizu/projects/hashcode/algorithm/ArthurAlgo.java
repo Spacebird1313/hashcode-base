@@ -6,6 +6,7 @@ import be.stivizu.projects.hashcode.model.Slide;
 import be.stivizu.projects.hashcode.util.ArthurUtil;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static be.stivizu.projects.hashcode.util.ArthurUtil.*;
 
@@ -23,6 +24,10 @@ public class ArthurAlgo extends Algorithm {
         int numSlides = 0;
 
         //Do algo
+        //Create slides from horizontals
+        List<Slide> horizontalSlides = horizontal.stream().map(p -> new Slide(Collections.singletonList(p), p.getId()))
+                .collect(Collectors.toList());
+
         ListIterator<Photo> horizontalIter = horizontal.listIterator();
         ListIterator<Photo> verticalIter = vertical.listIterator();
         while (horizontalIter.hasNext()){

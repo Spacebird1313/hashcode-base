@@ -4,6 +4,7 @@ import be.stivizu.projects.hashcode.model.Orientation;
 import be.stivizu.projects.hashcode.model.Photo;
 import be.stivizu.projects.hashcode.model.Slide;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -17,6 +18,11 @@ public class ArthurUtil {
 
     public static Optional<Photo> getFirstWithOrientation(List<Photo> photos, Orientation o){
         return photos.stream().filter(p -> p.getOrientation().equals(o)).findFirst();
+    }
+
+    public static List<Slide> makeHorizontalSlides(List<Photo> horizontalPhotos){
+        return horizontalPhotos.stream().map(p -> new Slide(Collections.singletonList(p), p.getId()))
+                .collect(Collectors.toList());
     }
 
     public static Slide[] findBestMatch(List<Slide> slides){
