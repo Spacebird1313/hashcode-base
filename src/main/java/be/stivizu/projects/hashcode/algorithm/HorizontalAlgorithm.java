@@ -5,7 +5,8 @@ import be.stivizu.projects.hashcode.model.Slide;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
+import static be.stivizu.projects.hashcode.util.ThomasUtil.getInterestFactor;
 
 public class HorizontalAlgorithm extends Algorithm
 {
