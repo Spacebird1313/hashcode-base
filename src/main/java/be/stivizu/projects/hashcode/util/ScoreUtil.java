@@ -2,6 +2,7 @@ package be.stivizu.projects.hashcode.util;
 
 import be.stivizu.projects.hashcode.model.InputData;
 import be.stivizu.projects.hashcode.model.OutputData;
+import be.stivizu.projects.hashcode.model.Photo;
 import be.stivizu.projects.hashcode.model.Slide;
 
 import java.util.ArrayList;
@@ -40,7 +41,11 @@ public class ScoreUtil {
     private static List<String> getTagsForSlide(InputData inputData, Slide slide) {
         List<String> tags = new ArrayList<>();
         for (Integer photoId : slide.photoIds) {
-            tags.addAll(inputData.photosList.get(photoId).getTags());
+            Photo photo = inputData.photosList.get(photoId);
+            if (photo.getId() != photoId) {
+                throw new RuntimeException("incompat id");
+            }
+            tags.addAll(photo.getTags());
         }
         return tags;
     }

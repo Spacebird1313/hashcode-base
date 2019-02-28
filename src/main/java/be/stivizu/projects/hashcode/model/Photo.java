@@ -30,7 +30,9 @@ public class Photo {
     }
 
     public void addTag(String tag) {
-        tags.add(tag);
+        if (!tags.contains(tag)) {
+            tags.add(tag);
+        }
     }
 
 }

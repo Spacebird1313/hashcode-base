@@ -16,6 +16,10 @@ public class InputData {
 
     public List<Photo> photosList;
 
+    public List<Photo> horPhotos = new ArrayList<>();
+
+    public List<Photo> verPhotos = new ArrayList<>();
+
     //public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
 
     public InputData(final List<String> fileData) {
@@ -31,6 +35,11 @@ public class InputData {
             }
             photos.add(photo);
             photosList.add(photo);
+            if (photo.getOrientation() == Orientation.HORIZONTAL) {
+                horPhotos.add(photo);
+            } else {
+                verPhotos.add(photo);
+            }
         }
         //sortPhotosUtil.sortPhotos(photos);
     }
