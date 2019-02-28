@@ -1,9 +1,7 @@
 package be.stivizu.projects.hashcode.model;
 
-import java.util.HashSet;
-import be.stivizu.projects.hashcode.util.SortPhotosUtil;
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,10 +13,14 @@ public class InputData {
      */
 
     public Set<Photo> photos;
+
+    public List<Photo> photosList;
+
     //public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
 
     public InputData(final List<String> fileData) {
         photos = new HashSet<>();
+        photosList = new ArrayList<>();
         int numberOfPhotos = Integer.parseInt(fileData.get(0));
         for (int i = 1; i <= numberOfPhotos; i++) {
             String[] dataLine = fileData.get(i).split(" ");
@@ -28,6 +30,7 @@ public class InputData {
                 photo.addTag(dataLine[tagIndex]);
             }
             photos.add(photo);
+            photosList.add(photo);
         }
         //sortPhotosUtil.sortPhotos(photos);
     }

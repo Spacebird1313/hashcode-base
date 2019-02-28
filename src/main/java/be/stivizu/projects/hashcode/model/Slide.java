@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class Slide {
 
-    List<Integer> photoIds;
-    List<Photo> photos;
+    public List<Integer> photoIds;
+    public List<Photo> photos;
 
 
     public Slide(int... ids) {
