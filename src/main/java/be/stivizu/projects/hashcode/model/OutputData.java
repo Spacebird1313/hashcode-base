@@ -32,9 +32,7 @@ public class OutputData {
     public List<String> generateOutput() {
         List<String> output = new ArrayList<>();
         output.add(String.valueOf(numberOfSlides));
-        for (Slide slide : slides) {
-            output.add(slide.photoIds.stream().map(id -> String.valueOf(id)).collect(Collectors.joining(" ")));
-        }
+        slides.forEach(slide -> output.add(slide.photoIds.stream().map(String::valueOf).collect(Collectors.joining(" "))));
         return output;
     }
 
