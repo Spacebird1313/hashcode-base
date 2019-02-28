@@ -2,6 +2,7 @@ package be.stivizu.projects.hashcode.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OutputData {
 
@@ -29,7 +30,10 @@ public class OutputData {
      */
 
     public List<String> generateOutput() {
-        return new ArrayList<>();
+        List<String> output = new ArrayList<>();
+        output.add(String.valueOf(numberOfSlides));
+        slides.forEach(slide -> output.add(slide.photoIds.stream().map(String::valueOf).collect(Collectors.joining(" "))));
+        return output;
     }
 
 }
