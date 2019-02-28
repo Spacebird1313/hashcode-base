@@ -26,4 +26,8 @@ public class InputData {
         }
     }
 
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
 }
