@@ -31,4 +31,7 @@ public class InputData {
         sortPhotosUtil.sortPhotos(photos);
     }
 
+    public SortPhotosUtil getSortPhotosUtil() {
+        return sortPhotosUtil;
+    }
 }
