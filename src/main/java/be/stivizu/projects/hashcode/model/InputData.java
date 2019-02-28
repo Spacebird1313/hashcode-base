@@ -1,9 +1,11 @@
 package be.stivizu.projects.hashcode.model;
 
+import java.util.HashSet;
 import be.stivizu.projects.hashcode.util.SortPhotosUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class InputData {
 
@@ -12,12 +14,11 @@ public class InputData {
             available in the algorithm(s).
      */
 
-    protected List<Photo> photos;
-    public SortPhotosUtil sortPhotosUtil;
+    public Set<Photo> photos;
+    public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
 
     public InputData(final List<String> fileData) {
-        sortPhotosUtil = new SortPhotosUtil();
-        photos = new ArrayList<>();
+        photos = new HashSet<>();
         int numberOfPhotos = Integer.parseInt(fileData.get(0));
         for (int i = 1; i <= numberOfPhotos; i++) {
             String[] dataLine = fileData.get(i).split(" ");

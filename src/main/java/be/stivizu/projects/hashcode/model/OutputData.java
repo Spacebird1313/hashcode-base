@@ -15,6 +15,7 @@ public class OutputData {
     List<Slide> slides;
 
     public OutputData() {
+        slides = new ArrayList<>();
     }
 
     public void setNumberOfSlides(int numberOfSlides) {
