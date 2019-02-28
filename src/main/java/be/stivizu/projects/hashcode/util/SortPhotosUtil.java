@@ -3,6 +3,7 @@ package be.stivizu.projects.hashcode.util;
 import be.stivizu.projects.hashcode.model.Photo;
 
 import java.util.List;
+import java.util.Set;
 
 public class SortPhotosUtil {
     protected List<Photo> photosV;
@@ -16,7 +17,7 @@ public class SortPhotosUtil {
         return photosH;
     }
 
-    public void sortPhotos(List<Photo> photos) {
+    public void sortPhotos(Set<Photo> photos) {
         for(Photo photo : photos) {
             if("H".equals(photo.getOrientation())) {
                 photosH.add(photo);
