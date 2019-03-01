@@ -32,24 +32,19 @@ public class ArthurAlgo extends Algorithm {
 
         Set<Slide> verticalSlides = VerticalPhotoCombinerUtil.combineBig(new HashSet<>(vertical));
 
-        while (verticalIter.hasNext()){
-            Photo next = verticalIter.next();
-            Photo next2 = verticalIter.next();
-            verticalSlides.add(new Slide(Arrays.asList(next, next2), next.getId(), next2.getId()));
-        }
-
         //Combine slides
         ArrayList<Slide> allSlides = new ArrayList<>();
         allSlides.addAll(horizontalSlides);
         allSlides.addAll(verticalSlides);
 
         //Map Slides
-        ArrayList<Object> finalSlides = new ArrayList<>();
+        ArrayList<Slide> finalSlides = new ArrayList<>();
 
         //Startup
         Slide startSlide = allSlides.get(0);
+        allSlides.remove(startSlide);
         Slide bestStartMatch = findBestMatch(startSlide, allSlides);
-        allSlides.removeAll(Arrays.asList(startSlide, bestStartMatch));
+        allSlides.remove(bestStartMatch);
         finalSlides.addAll(Arrays.asList(startSlide, bestStartMatch));
         numSlides+=2;
 
@@ -63,7 +58,7 @@ public class ArthurAlgo extends Algorithm {
         }
 
         outputData.setNumberOfSlides(numSlides);
-        outputData.setSlides(allSlides);
+        outputData.setSlides(finalSlides);
 
     }
 }

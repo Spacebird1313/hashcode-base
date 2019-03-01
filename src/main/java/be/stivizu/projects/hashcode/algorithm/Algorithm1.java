@@ -5,5 +5,4 @@ public class Algorithm1 extends Algorithm {
     @Override
     protected void doAlgorithm() {
     }
-
 }

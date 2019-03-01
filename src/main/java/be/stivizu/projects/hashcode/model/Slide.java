@@ -29,27 +29,24 @@ public class Slide {
         int slide1Ex = tags.size();
         int slide2Ex = otherTags.size();
 
-        long count = tags.stream().filter(otherTags::contains).count();
-        matchScore += count;
-        slide1Ex -= count;
-        slide2Ex -= count;
+//        if(slide1Ex+4<=slide2Ex && slide1Ex-4>=slide2Ex) {
 
-//        for(String tagThis : tags)
-//        {
-//            for(String tagOther : otherTags)
-//            {
-//                if(tagThis.equals(tagOther))
-//                {
-//                    matchScore++;
-//                    slide1Ex--;
-//                    slide2Ex--;
-//
-//                    break;
-//                }
-//            }
+            for (String tagThis : tags) {
+                for (String tagOther : otherTags) {
+                    if (tagThis.hashCode() == tagOther.hashCode()) {
+                        matchScore++;
+                        break;
+                    }
+                }
+            }
+
+            slide1Ex -= matchScore;
+            slide2Ex -= matchScore;
+
+            return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
+//        }else{
+//            return 0;
 //        }
-
-        return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
     }
 
     public int getInterestFactor(Slide other, int best){

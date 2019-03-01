@@ -6,4 +6,5 @@ public class AlgorithmDries extends Algorithm {
     protected void doAlgorithm() {
 
     }
+
 }
