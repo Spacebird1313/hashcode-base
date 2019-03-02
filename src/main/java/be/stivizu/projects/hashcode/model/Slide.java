@@ -21,7 +21,7 @@ public class Slide {
         setAllTags(photos);
     }
 
-    public int getInterestFactor(Slide other){
+    public int getInterestFactor(Slide other) {
         Set<String> tags = getAllTags();
         Set<String> otherTags = other.getAllTags();
 
@@ -29,27 +29,22 @@ public class Slide {
         int slide1Ex = tags.size();
         int slide2Ex = otherTags.size();
 
-//        if(slide1Ex+4<=slide2Ex && slide1Ex-4>=slide2Ex) {
-
-            for (String tagThis : tags) {
-                for (String tagOther : otherTags) {
-                    if (tagThis.hashCode() == tagOther.hashCode()) {
-                        matchScore++;
-                        break;
-                    }
+        for (String tagThis : tags) {
+            for (String tagOther : otherTags) {
+                if (tagThis.hashCode() == tagOther.hashCode()) {
+                    matchScore++;
+                    break;
                 }
             }
+        }
 
-            slide1Ex -= matchScore;
-            slide2Ex -= matchScore;
+        slide1Ex -= matchScore;
+        slide2Ex -= matchScore;
 
-            return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
-//        }else{
-//            return 0;
-//        }
+        return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
     }
 
-    public int getInterestFactor(Slide other, int best){
+    public int getInterestFactor(Slide other, int best) {
         Set<String> tags = getAllTags();
         Set<String> otherTags = other.getAllTags();
 
@@ -60,7 +55,7 @@ public class Slide {
         int bestCase = slide1Ex < slide2Ex ? slide1Ex : slide2Ex;
         bestCase /= 2;
 
-        if(bestCase > best) {
+        if (bestCase > best) {
             for (String tagThis : tags) {
                 for (String tagOther : otherTags) {
                     if (tagThis.equals(tagOther)) {
@@ -75,19 +70,19 @@ public class Slide {
 
 
             return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public int getInterestFactorStreams(Slide other){
+    public int getInterestFactorStreams(Slide other) {
         long numCommonTags = ArthurUtil.getNumCommonTags(this, other);
         long notInB = ArthurUtil.getNumNotInOther(this, other);
         long notInA = ArthurUtil.getNumNotInOther(other, this);
         return Math.toIntExact(Arrays.asList(numCommonTags, notInA, notInB).stream().min(Long::compareTo).get());
     }
 
-    private void setAllTags(List<Photo> photos){
+    private void setAllTags(List<Photo> photos) {
         Set<String> tags = new HashSet<>();
         for (Photo photo : photos) {
             tags.addAll(photo.getTags());
@@ -95,7 +90,7 @@ public class Slide {
         allTags = tags;
     }
 
-    public Set<String> getAllTags(){
+    public Set<String> getAllTags() {
         return allTags;
     }
 }

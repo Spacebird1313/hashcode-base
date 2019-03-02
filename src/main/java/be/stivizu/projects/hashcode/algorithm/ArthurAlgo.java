@@ -50,7 +50,7 @@ public class ArthurAlgo extends Algorithm {
 
         Slide currentSlide = bestStartMatch;
         while (!allSlides.isEmpty()){
-            System.out.println("Finding Match" + allSlides.size());
+            System.out.println("Finding Match For " + getFileName() + ". numSlidesToGo: " + allSlides.size());
             Slide bestMatch = findBestMatch(currentSlide, allSlides);
             allSlides.remove(bestMatch);
             finalSlides.add(bestMatch);

@@ -6,7 +6,8 @@ import be.stivizu.projects.hashcode.model.OutputData;
 import be.stivizu.projects.hashcode.util.ScoreUtil;
 
 import java.nio.file.Path;
-import java.util.Comparator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static be.stivizu.projects.hashcode.util.FileUtil.*;
 import static be.stivizu.projects.hashcode.util.ReflectionUtil.getClassReferencesForClassesExtendingGivenBaseClass;
@@ -20,20 +21,53 @@ public class Solver {
 
     private void solve() {
         clearResourceFolderOrCreateIt(OUTPUT_DATA_PATH_FROM_RESOURCES);
-        streamFolderContents(loadResource(INPUT_DATA_PATH_FROM_RESOURCES))
+        List<Path> files = streamFolderContents(loadResource(INPUT_DATA_PATH_FROM_RESOURCES))
                 .peek(inputFile -> System.out.println(inputFile.getFileName()))
-                .forEach(inputFile -> solve(inputFile.getFileName(), new InputData(readFileContents(inputFile))));
+                .collect(Collectors.toList());
+        Map<Path, Map<Algorithm, Thread>> threadsByAlgorithm = new HashMap<>();
+        //Generate threads
+        for (Path file : files) {
+            threadsByAlgorithm.put(file, createThreads(file.getFileName(), new InputData(readFileContents(file))));
+        }
+        //for each file, generate output
+        threadsByAlgorithm.forEach((path,  entry) -> {
+            Map<Algorithm, OutputData> outputDataMap = new HashMap<>();
+            entry.forEach((algorithm, thread) -> {
+                outputDataMap.put(algorithm, solve(algorithm, thread));
+            });
+            OutputData result = outputDataMap.entrySet().stream()
+                    .max(Comparator.comparing(outputDataEntry -> ScoreUtil.calculateScore(outputDataEntry.getKey().getInputData(), outputDataEntry.getValue())))
+                    .map(Map.Entry::getValue)
+                    .orElseThrow(() -> new RuntimeException("Was unable to deduce an optimal solution."));
+            doOutPut(changeFileExtension(path, "out"), result);
+        });
     }
 
-    private void solve(final Path fileName, final InputData inputData) {
-        doOutPut(changeFileExtension(fileName, "out"),
-                 getClassReferencesForClassesExtendingGivenBaseClass(Algorithm.class).stream()
-                         .map(algorithmObject -> (Algorithm) algorithmObject)
-                         .map(algorithm -> algorithm.solve(inputData))
-                         .filter(outputData -> validateSolution(inputData, outputData))
-                         .max(Comparator.comparing(outputData -> ScoreUtil.calculateScore(inputData, outputData)))
-                         .orElseThrow(() -> new RuntimeException("Was unable to deduce an optimal solution."))
-        );
+    private Map<Algorithm, Thread> createThreads(final Path file, final InputData inputData) {
+        Map<Algorithm, Thread> threads = new HashMap<>();
+        for(Algorithm algorithm : getClassReferencesForClassesExtendingGivenBaseClass(Algorithm.class)){
+            Thread thread = new Thread(algorithm);
+            threads.put(algorithm, thread);
+            algorithm.setInputData(inputData);
+            algorithm.setFileName(file.getFileName());
+            System.out.println("Starting threads for " + file);
+            thread.start();
+        }
+        return threads;
+    }
+
+    private OutputData solve(Algorithm algorithm, Thread thread){
+        //Join threads
+        try {
+            thread.join();
+            OutputData outputData = algorithm.getOutputData();
+            if(validateSolution(algorithm.getInputData(), outputData)) {
+                return outputData;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void doOutPut(final Path fileName, final OutputData outputData) {
