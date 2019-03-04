@@ -11,6 +11,12 @@ public class Slide {
 
     public Set<String> allTags;
 
+    public Slide(int... ids) {
+        this.photoIds = new ArrayList<>();
+        for (Integer integer : ids) {
+            photoIds.add(integer);
+        }
+    }
 
     public Slide(List<Photo> photos, int... ids) {
         this.photos = photos;

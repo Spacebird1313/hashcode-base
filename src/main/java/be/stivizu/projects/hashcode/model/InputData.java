@@ -1,9 +1,7 @@
 package be.stivizu.projects.hashcode.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class InputData {
 
@@ -19,6 +17,12 @@ public class InputData {
     public List<Photo> horPhotos = new ArrayList<>();
 
     public List<Photo> verPhotos = new ArrayList<>();
+
+    public List<Photo> photosSortNoTags = new ArrayList<>();
+
+    public List<Photo> photosSortHorizontalNoTags = new ArrayList<>();
+
+    public List<Photo> photosSortHVerticalNoTags = new ArrayList<>();
 
     //public SortPhotosUtil sortPhotosUtil = new SortPhotosUtil();
 
@@ -39,6 +43,16 @@ public class InputData {
                 horPhotos.add(photo);
             } else {
                 verPhotos.add(photo);
+            }
+        }
+        photosSortNoTags = photosList.stream()
+                .sorted(Comparator.comparing(photo -> photo.getTags().size()))
+                .collect(Collectors.toList());
+        for (Photo photo : photosSortNoTags) {
+            if (photo.getOrientation() == Orientation.HORIZONTAL) {
+                photosSortHorizontalNoTags.add(photo);
+            } else {
+                photosSortHVerticalNoTags.add(photo);
             }
         }
         //sortPhotosUtil.sortPhotos(photos);
