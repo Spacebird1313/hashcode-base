@@ -17,6 +17,9 @@ public class ArthurAlgo extends Algorithm {
 
         List<Photo> photos = new ArrayList<>(inputData.photos);
 
+        //Optimize photos with primitives
+        photos = photos.stream().map(ArthurUtil::encodeTags).collect(Collectors.toList());
+
         List<Photo> horizontal = getWithOrientation(photos, Orientation.HORIZONTAL);
         List<Photo> vertical = getWithOrientation(photos, Orientation.VERTICAL);
 
@@ -30,7 +33,7 @@ public class ArthurAlgo extends Algorithm {
         //Random vertical slides
         ListIterator<Photo> verticalIter = vertical.listIterator();
 
-        Set<Slide> verticalSlides = VerticalPhotoCombinerUtil.combineBig(new HashSet<>(vertical));
+        Set<Slide> verticalSlides = VerticalPhotoCombinerUtil.combineBigStream(vertical);
 
         //Combine slides
         ArrayList<Slide> allSlides = new ArrayList<>();

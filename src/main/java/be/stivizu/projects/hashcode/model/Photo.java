@@ -10,6 +10,7 @@ public class Photo {
     private Orientation orientation;
 
     private Set<String> tags;
+    private int[] tagsInt;
 
     public Photo(int id, String orientation) {
         this.id = id;
@@ -30,9 +31,14 @@ public class Photo {
     }
 
     public void addTag(String tag) {
-        if (!tags.contains(tag)) {
-            tags.add(tag);
-        }
+        tags.add(tag);
     }
 
+    public int[] getTagsInt() {
+        return tagsInt;
+    }
+
+    public void setTagsInt(int[] tagsInt) {
+        this.tagsInt = tagsInt;
+    }
 }

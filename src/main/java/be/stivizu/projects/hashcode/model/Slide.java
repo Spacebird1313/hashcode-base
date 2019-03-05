@@ -1,6 +1,7 @@
 package be.stivizu.projects.hashcode.model;
 
 import be.stivizu.projects.hashcode.util.ArthurUtil;
+import be.stivizu.projects.hashcode.util.ThomasUtil;
 
 import java.util.*;
 
@@ -10,6 +11,7 @@ public class Slide {
     public List<Photo> photos;
 
     public Set<String> allTags;
+    public int[] allTagsInt;
 
     public Slide(int... ids) {
         this.photoIds = new ArrayList<>();
@@ -27,65 +29,22 @@ public class Slide {
         setAllTags(photos);
     }
 
+    public Slide(Photo... photos) {
+        List<Photo> photos1 = Arrays.asList(photos);
+        this.photos = photos1;
+        this.photoIds = new ArrayList<>();
+        for (Photo photo : photos) {
+            photoIds.add(photo.getId());
+        }
+        setAllTags(photos1);
+    }
+
     public int getInterestFactor(Slide other) {
-        Set<String> tags = getAllTags();
-        Set<String> otherTags = other.getAllTags();
-
-        int matchScore = 0;
-        int slide1Ex = tags.size();
-        int slide2Ex = otherTags.size();
-
-        for (String tagThis : tags) {
-            for (String tagOther : otherTags) {
-                if (tagThis.hashCode() == tagOther.hashCode()) {
-                    matchScore++;
-                    break;
-                }
-            }
-        }
-
-        slide1Ex -= matchScore;
-        slide2Ex -= matchScore;
-
-        return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
+        return ThomasUtil.getInterestFactor(getAllTags(), other.getAllTags());
     }
 
-    public int getInterestFactor(Slide other, int best) {
-        Set<String> tags = getAllTags();
-        Set<String> otherTags = other.getAllTags();
-
-        int matchScore = 0;
-        int slide1Ex = tags.size();
-        int slide2Ex = otherTags.size();
-
-        int bestCase = slide1Ex < slide2Ex ? slide1Ex : slide2Ex;
-        bestCase /= 2;
-
-        if (bestCase > best) {
-            for (String tagThis : tags) {
-                for (String tagOther : otherTags) {
-                    if (tagThis.equals(tagOther)) {
-                        matchScore++;
-                        slide1Ex--;
-                        slide2Ex--;
-
-                        break;
-                    }
-                }
-            }
-
-
-            return Math.min(Math.min(slide1Ex, slide2Ex), matchScore);
-        } else {
-            return 0;
-        }
-    }
-
-    public int getInterestFactorStreams(Slide other) {
-        long numCommonTags = ArthurUtil.getNumCommonTags(this, other);
-        long notInB = ArthurUtil.getNumNotInOther(this, other);
-        long notInA = ArthurUtil.getNumNotInOther(other, this);
-        return Math.toIntExact(Arrays.asList(numCommonTags, notInA, notInB).stream().min(Long::compareTo).get());
+    public int getInterestFactorOptimised(Slide other) {
+        return ArthurUtil.getInterestFactor(this, other);
     }
 
     private void setAllTags(List<Photo> photos) {
@@ -94,6 +53,8 @@ public class Slide {
             tags.addAll(photo.getTags());
         }
         allTags = tags;
+        allTagsInt = tags.stream().mapToInt(i->ArthurUtil.tags.get(i)).toArray();
+
     }
 
     public Set<String> getAllTags() {

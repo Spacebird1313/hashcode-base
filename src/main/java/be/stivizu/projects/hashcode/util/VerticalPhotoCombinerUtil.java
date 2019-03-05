@@ -4,8 +4,19 @@ import be.stivizu.projects.hashcode.model.Photo;
 import be.stivizu.projects.hashcode.model.Slide;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class VerticalPhotoCombinerUtil {
+
+    public static Set<Slide> combineBigStream(List<Photo> photos){
+        List<Photo> collect = photos.stream().sorted(Comparator.comparingInt(p -> p.getTags().size())).collect(Collectors.toList());
+        Set<Slide> slides = new HashSet<>();
+        //Combine in sets of 2
+        for (int i = 0; i < collect.size(); i += 2) {
+            slides.add(new Slide(collect.get(i), collect.get(i+1)));
+        }
+        return slides;
+    }
 
     public static Set<Slide> combineBig(Set<Photo> photos) {
         Set<Slide> slides = new HashSet<>();
